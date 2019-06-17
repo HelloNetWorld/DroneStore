@@ -1,0 +1,38 @@
+﻿@model ShoppingCartViewModel
+
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+@if (Model.Lines.Any())
+{
+    <div class="mx-3">
+        <h1 class="text-center">Your shopping cart:</h1>
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                @await Component.InvokeAsync("CartLines", new { model = Model.Lines })
+            </div>
+            <div class="col-md-4 col-sm-12">
+                @await Component.InvokeAsync("CartTotal", new { model = Model })
+            </div>
+        </div>
+        <nav>
+            <a class="btn btn-info" href="@Model.BackUrl">Back</a>
+            <a asp-action="Clear" class="btn btn-danger">Remove All</a>
+        </nav>
+    </div>
+}
+else
+{
+    <div class="mx-3">
+		<div class="mb-3 h5">
+			<span class="mx-2 fas fa-frown"></span> 
+			<span class="mb-3">Shopping cart is empty</span>
+		</div>
+
+        <div class="col-md-3">
+            <a asp-controller="Catalog" asp-action="Index" class="btn btn-info">Go shopping!</a>
+        </div>
+    </div>
+}
+

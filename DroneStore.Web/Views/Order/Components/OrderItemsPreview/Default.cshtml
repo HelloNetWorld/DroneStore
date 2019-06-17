@@ -1,0 +1,45 @@
+﻿@model OrderItemsPreviewViewModel
+
+<div class="card mb-4">
+	<div class="card-header" id="shopping-cart-preview-header" role="tab">
+		<span class="fas fa-shopping-cart mx-2"></span>
+		<span>
+			Total: $@Model.Total
+		</span>
+		<span class="float-right badge badge-pill badge-success">
+			@Model.Count
+		</span>
+	</div>
+	<div class="card-body" id="shopping-cart-preview-body">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Name</th>
+					<th scope="col">UnitPrice</th>
+					<th scope="col">QTY</th>
+					<th scope="col">Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model.Items)
+				{
+					<tr>
+						<td>@item.Name</td>
+						<td>@item.UnitPrice</td>
+						<td>@item.Quantity</td>
+						<td><i>@item.SubTotal</i></td>
+					</tr>
+				}
+			</tbody>
+			<tfoot>
+				<tr>
+					<th scope="row" colspan="3">Total:</th>
+					<td><strong>@Model.Total</strong></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
+
+
+

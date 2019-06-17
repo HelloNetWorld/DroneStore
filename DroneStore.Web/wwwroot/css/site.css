@@ -1,0 +1,426 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+.navbar-brand {
+	white-space: normal;
+	text-align: center;
+	word-break: break-all;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+	font-size: 14px;
+}
+
+@media (min-width: 768px) {
+	html {
+		font-size: 16px;
+	}
+}
+
+.border-top {
+	border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+	box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.accept-policy {
+	font-size: 1rem;
+	line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	/* Margin bottom by footer height */
+	margin-bottom: 60px;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	white-space: nowrap;
+	/* Set the fixed height of the footer here */
+	height: 60px;
+	line-height: 60px; /* Vertically center the text there */
+}
+
+/****** Catalog ******/
+.page-filter-navigation {
+	padding-right: 7.5px;
+	padding-left: 7.5px
+}
+
+.page-item.active > a.page-link {
+	border: 1px solid #343a40;
+	background-color: #343a40;
+	color: #fff
+}
+
+.pagination > li.page-item > a {
+	border: 1px solid #343a40;
+	color: #343a40
+}
+
+	.pagination > li.page-item > a:hover {
+		border: 1px solid #343a40;
+		background-color: #343a40;
+		color: #fff
+	}
+
+	.pagination > li.page-item > a:focus {
+		outline: 0;
+		box-shadow: 0 0 0 0.2rem rgba(52,58,64,0.5)
+	}
+
+.product-grid {
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	position: relative;
+	z-index: 1
+}
+
+	.product-grid .product-image {
+		border: 1px solid rgba(0,0,0,.1);
+		overflow: hidden;
+		perspective: 1500px;
+		position: relative;
+		transition: all .3s ease
+	}
+
+	.product-grid:hover .product-image a img {
+		opacity: .8
+	}
+
+	.product-grid .product-image a {
+		display: block;
+		transition: all .3s ease-out
+	}
+
+	.product-grid .product-image img {
+		width: 100%;
+		height: auto
+	}
+
+	.product-grid .pic {
+		opacity: 1;
+		overflow: hidden;
+	}
+
+	.product-grid .social {
+		padding: 0;
+		margin: 0;
+		list-style: none;
+		position: absolute;
+		bottom: 3px;
+		left: -20%;
+		z-index: 1;
+		transition: all .5s
+	}
+
+	.product-grid:hover .social {
+		left: 17px
+	}
+
+	.product-grid .social li a,
+	.product-grid .social li button {
+		color: #343a40;
+		background-color: transparent;
+		line-height: 40px;
+		text-align: center;
+		text-decoration: none;
+		height: 40px;
+		width: 40px;
+		margin: 15px 0;
+		border-radius: 50%;
+		display: block;
+		border: 1px solid #343a40;
+		transition: all .3s ease-in-out
+	}
+
+		.product-grid .social li a:hover,
+		.product-grid .social li button:hover {
+			color: #fff;
+			background-color: #343a40
+		}
+
+	.product-grid .product-new-label {
+		color: #fff;
+		background-color: #17a2b8;
+		padding: 5px 10px;
+		border-radius: 5px 0 0 5px;
+		display: block;
+		position: absolute;
+		top: 10px;
+		right: -1px
+	}
+
+	.product-grid .product-discount-label {
+		font-size: 1.2em;
+		color: #fff;
+		background-color: #cc3a3a;
+		padding: 5px 10px;
+		border-radius: 0 5px 5px 0;
+		display: block;
+		position: absolute;
+		top: 10px;
+		left: -1px;
+	}
+
+	.product-grid .product-content {
+		text-align: center;
+		padding: 20px 0 0
+	}
+
+	.product-grid .title {
+		font-size: 15px;
+		font-weight: 600;
+		text-transform: capitalize;
+		margin: 0 0 10px;
+		transition: all .3s ease
+	}
+
+		.product-grid .title a {
+			color: #333
+		}
+
+.product-grid7 .title a:hover {
+	color: #78e08f
+}
+
+.product-grid .rating {
+	color: #78e08f;
+	font-size: 12px;
+	padding: 0;
+	margin: 0 0 10px;
+	list-style: none
+}
+
+.product-grid .price {
+	color: #85bb65;
+	font-size: 20px;
+	font-family: Lora,serif;
+	font-weight: 700;
+	margin-bottom: 8px;
+	text-align: center;
+}
+
+	.product-grid .price span {
+		color: red;
+		font-size: 14px;
+		font-weight: 700;
+		text-decoration: line-through;
+		margin-left: 7px;
+		display: inline-block
+	}
+
+@media only screen and (max-width:990px) {
+	.product-grid {
+		margin-bottom: 30px
+	}
+}
+
+/****** Shopping cart button ******/
+.button-badge {
+	position: relative;
+}
+
+.badge-shopping-cart-alert {
+	position: absolute;
+	top: 1%;
+	right: 44%;
+	font-size: .6em;
+	border-radius: 50% !important
+}
+
+.badge-wishlist-alert {
+	position: absolute;
+	top: 1%;
+	right: 67%;
+	font-size: .6em;
+	border-radius: 50% !important
+}
+
+@media screen and (max-width: 768px){
+
+	.badge-shopping-cart-alert {
+		right: 93%;
+	}
+
+	.badge-wishlist-alert {
+		right: 94%;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.badge-wishlist-alert {
+		right: 67%;
+	}
+
+	.badge-shopping-cart-alert {
+		right: 44%;
+	}
+}
+
+/****** Shopping Cart ******/
+.sticky-table {
+	position: sticky;
+	top: 0
+}
+
+.card #shopping-cart-preview-body {
+	display: none
+}
+
+
+/****** Warnings backend messages ******/
+.message-warnings {
+	border: 1px solid red;
+	border-radius: 5px;
+	padding: 1.1em
+}
+
+	.message-warnings ul li {
+		color: red;
+		list-style: circle
+	}
+
+/****** Warnings frontend messages ******/
+
+.error {
+	color: red
+}
+
+input.error {
+	border-color: red
+}
+
+/******Login form******/
+
+#login-register-forms {
+	width: 410px;
+	margin: 10vh auto;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	background-color: #343a40;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+	#login-register-forms form {
+		width: 100%;
+		max-width: 410px;
+		padding: 15px;
+		margin: auto;
+	}
+
+	#login-register-forms .form-control {
+		position: relative;
+		box-sizing: border-box;
+		height: auto;
+		padding: 10px;
+		font-size: 16px;
+		margin-bottom: 10px;
+	}
+
+		#login-register-forms .form-control:focus {
+			z-index: 2;
+		}
+
+	#login-register-forms .social-login {
+		width: 390px;
+		margin: 0 auto;
+		margin-bottom: 14px;
+	}
+
+	#login-register-forms .social-btn {
+		font-weight: 100;
+		color: white;
+		width: 190px;
+		font-size: 0.9rem;
+	}
+
+	#login-register-forms a {
+		display: block;
+		padding-top: 10px;
+		color: lightseagreen;
+	}
+
+#login-register-form .lines {
+	width: 200px;
+	border: 1px solid red;
+}
+
+
+#login-register-forms button[type="submit"] {
+	margin-top: 10px;
+}
+
+#login-register-forms .facebook-btn {
+	background-color: #3C589C;
+}
+
+#login-register-forms .google-btn {
+	background-color: #DF4B3B;
+}
+
+#login-register-forms .form-reset, #login-register-forms .form-sign-up {
+	display: none;
+}
+
+	#login-register-forms .form-sign-up .social-btn {
+		width: 210px;
+	}
+
+.form-sign-up .social-login {
+	width: 210px !important;
+	margin: 0 auto;
+}
+
+/* Mobile */
+
+@media screen and (max-width:500px) {
+	#login-register-forms {
+		width: 300px;
+	}
+
+		#login-register-forms .social-login {
+			width: 200px;
+			margin: 0 auto;
+			margin-bottom: 10px;
+		}
+
+		#login-register-forms .social-btn {
+			font-size: 1.3rem;
+			font-weight: 100;
+			color: white;
+			width: 200px;
+			height: 56px;
+		}
+
+			#login-register-forms .social-btn:nth-child(1) {
+				margin-bottom: 5px;
+			}
+
+			#login-register-forms .social-btn span {
+				display: none;
+			}
+
+		#login-register-forms .facebook-btn:after {
+			content: 'Facebook';
+		}
+
+		#login-register-forms .google-btn:after {
+			content: 'Google+';
+		}
+}

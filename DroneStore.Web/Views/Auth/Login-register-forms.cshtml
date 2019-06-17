@@ -1,0 +1,65 @@
+﻿@model MultiFormViewModel
+@inject IAuthenticationSchemeProvider schemeProvider
+
+@{
+	ViewData["Title"] = "Login";
+	var googleScheme = await schemeProvider.GetSchemeAsync("GoogleCookie");
+}
+
+<div id="login-register-forms">
+
+	@if (Model != null && Model.ValidationErrors.Any())
+	{
+		<div class="message-warnings">
+			<ul>
+				@foreach (var error in Model.ValidationErrors)
+				{
+					<li>@error</li>
+				}
+			</ul>
+		</div>
+	}
+
+	<form class="form-sign-in" asp-action="Login" asp-controller="Auth" method="post">
+		<h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Log in</h1>
+		<div class="social-login">
+			<a href="#" class="btn facebook-btn social-btn"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </a>
+			<a class="btn google-btn social-btn" asp-action="LogInExternal" asp-route-name="@googleScheme.Name"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </a>
+		</div>
+		@Html.TextBoxFor(m => m.Login.Email, new { @class = "form-control", placeholder = "Email address", required = "", autofocus = "" })
+		@Html.TextBoxFor(m => m.Login.Password, new { @class = "form-control", id = "inputPassword", placeholder = "Password", required = "", autofocus = "" })
+		<div class="form-check">
+			@Html.CheckBoxFor(m => m.Login.RememberMe, new { @class = "form-check-input" })
+			@Html.LabelFor(m => m.Login.RememberMe, new { @class = "form-check-label" })
+		</div>
+		<input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+		<button class="btn btn-success btn-block" type="submit"><i class="fas fa-sign-in-alt"></i> Sign in</button>
+		<a href="#" id="forgot_pswd">Forgot password?</a>
+		<hr>
+
+		<button class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Register New Account</button>
+	</form>
+
+	<form action="/reset/password/" class="form-reset">
+		<input type="email" id="resetEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+		<button class="btn btn-primary btn-block" type="submit">Reset Password</button>
+		<a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i> Back</a>
+	</form>
+
+	<form asp-action="Register" asp-controller="Auth" method="post" class="form-sign-up">
+		<div class="social-login">
+			<button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign up with Facebook</span> </button>
+		</div>
+		<div class="social-login">
+			<button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign up with Google+</span> </button>
+		</div>
+		@Html.TextBoxFor(m => m.Register.Name, new { @class = "form-control", id = "user-name", placeholder = "Name", required = "", autofocus = "" })
+		@Html.TextBoxFor(m => m.Register.Email, new { @class = "form-control", id = "user-email", placeholder = "Email", required = "", autofocus = "" })
+		@Html.TextBoxFor(m => m.Register.Password, new { @class = "form-control", id = "user-pass", placeholder = "Password", required = "", autofocus = "" })
+		@Html.TextBoxFor(m => m.Register.RepeatPassword, new { @class = "form-control", id = "user-repeatpass", placeholder = "Repeat Password", required = "", autofocus = "" })
+		<button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i>Register</button>
+		<a href="#" id="cancel_signup"><i class="fas fa-angle-left"></i> Back</a>
+	</form>
+
+	<br>
+</div>

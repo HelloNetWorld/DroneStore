@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ShoppingCartLineViewModel>
+
+<div class="">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col"> </th>
+				<th scope="col">Product</th>
+				<th scope="col" class="text-center">Quantity</th>
+				<th scope="col" class="text-right">Price</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var line in Model)
+			{
+				<tr>
+					<td class="m-auto">
+						<img src="@Url.Action("Process", "Image", new { ImageId = line.ImageId})" alt="@line.Name" />
+					</td>
+					<td>@line.Name</td>
+					<td>
+						<div class="input-group">
+							<form asp-action="ChangeQuantity" asp-controller="ShoppingCart"
+								  asp-route-itemId="@line.Id" asp-route-quantity="-1">
+								<button class="btn btn-outline-info btn-sm mr-2" type="submit">
+									<span class="fas fa-minus" />
+								</button>
+							</form>
+							<input class="form-control" type="text" readonly value="@line.Quantity" />
+							<form asp-action="ChangeQuantity" asp-controller="ShoppingCart"
+								  asp-route-itemId="@line.Id" asp-route-quantity="1">
+								<button class="btn btn-outline-success btn-sm ml-2" type="submit">
+									<span class="fas fa-plus" />
+								</button>
+							</form>
+						</div>
+					</td>
+					<td class="text-right">$@line.Price</td>
+					<td class="text-right">
+						<form asp-action="RemoveFromCart" asp-controller="ShoppingCart"
+							  asp-route-itemId="@line.Id" asp-route-quantity="@line.Quantity">
+							<button type="submit" class="btn btn-sm btn-danger">
+								<i class="fa fa-trash"></i>
+							</button>
+						</form>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

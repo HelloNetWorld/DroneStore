@@ -1,0 +1,23 @@
+﻿@model CatalogFilterViewModel
+@using DroneStore.Web.Extensions
+
+<div class="dropdown mr-3">
+    <button class="btn btn-outline-dark dropdown-toggle" type="button" data-toggle="dropdown">
+        Sort By - @Model.Filter.GetEnumValue(Model.Filter.SortingBy)
+        <span class="caret"></span>
+    </button>
+    <div class="dropdown-menu">
+        @foreach (var value in EnumExtensions.GetEnumValues<SortBy>())
+        {
+            if (value != Model.Filter.SortingBy)
+            {
+             <a asp-controller="Catalog" asp-action="Catalog"
+                asp-route-currentPage="1" asp-route-itemsPerPage="@Model.Pagination.ItemsPerPage"
+                asp-route-currentBrand="@Model.Filter.FilterByBrand.CurrentBrand" asp-route-sortBy="@value"
+                class="dropdown-item text-dark">
+                 @Model.Filter.GetEnumValue(value)
+             </a>
+            }
+        }
+    </div>
+</div>

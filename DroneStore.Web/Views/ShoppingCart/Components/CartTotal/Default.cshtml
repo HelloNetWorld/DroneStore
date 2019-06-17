@@ -1,0 +1,27 @@
+﻿@model ShoppingCartViewModel
+
+<div class="sticky-table">
+	<table class="table">
+		<tbody>
+			<tr>
+				<th scope="row">SubTotal:</th>
+				<td>$@Model.SubTotal</td>
+			</tr>
+			<tr>
+				<th scope="row">Discount:</th>
+				<td>$@Model.Discount</td>
+			</tr>
+			<tr>
+				<th scope="row">Total:</th>
+				<td>$@Model.Total</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="text-center">
+					<a asp-controller="Order" asp-action="SessionCartOrder" class="btn btn-block btn-success">
+						CheckOut
+					</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

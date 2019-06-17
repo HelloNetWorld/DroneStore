@@ -1,0 +1,40 @@
+﻿@model CatalogFilterViewModel
+
+<div class="page-filter-navigation btn-toolbar">
+
+    @await Component.InvokeAsync("FilterByBrand", new { model = Model.Filter.FilterByBrand })
+
+    @await Component.InvokeAsync("SortBy", new { model = Model })
+
+    <div class="m-auto">
+        <span>@Model.Pagination.ToString()</span>
+    </div>
+
+    <div class="dropdown">
+        <button class="btn btn-outline-dark dropdown-toggle" type="button" data-toggle="dropdown">
+            Display - @Model.Pagination.ItemsPerPage.ToString()
+            <span class="caret"></span>
+        </button>
+        <div class="dropdown-menu">
+            <a asp-controller="Catalog" asp-action="Catalog"
+               asp-route-currentPage="1" asp-route-itemsPerPage="4"
+               asp-route-currentBrand="@Model.Filter.FilterByBrand.CurrentBrand"
+               class="dropdown-item text-dark">
+                4
+            </a>
+            <a asp-controller="Catalog" asp-action="Catalog"
+               asp-route-currentPage="1" asp-route-itemsPerPage="8"
+               asp-route-currentBrand="@Model.Filter.FilterByBrand.CurrentBrand"
+               class="dropdown-item text-dark">
+                8
+            </a>
+            <a asp-controller="Catalog" asp-action="Catalog"
+               asp-route-currentPage="1" asp-route-itemsPerPage="12"
+               asp-route-currentBrand="@Model.Filter.FilterByBrand.CurrentBrand"
+               class="dropdown-item text-dark">
+                12
+            </a>
+        </div>
+    </div>
+</div>
+<hr class="mb-3" />

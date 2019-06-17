@@ -1,0 +1,13 @@
+﻿@model CatalogViewModel
+
+@{
+    ViewData["Title"] = "Catalog";
+}
+
+@await Component.InvokeAsync("Filter", new { model = Model.Filter })
+
+@await Component.InvokeAsync("ProductSummary", new { model = Model.CatalogItems })
+
+<hr class="mb-3" />
+
+@await Component.InvokeAsync("Pagination", new { model = Model.Filter })

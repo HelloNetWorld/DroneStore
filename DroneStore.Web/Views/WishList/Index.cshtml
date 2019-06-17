@@ -1,0 +1,61 @@
+﻿@model WishListViewModel
+
+<div class="container">
+	@if (!Model.Items.Any())
+	{
+		<h4 class="text-center">
+			Wishlist is empty!
+		</h4>
+		<p class="text-center">Add to wishlist using <span class="fas fa-heart"/>.</p>
+	}
+	else
+	{
+		<hr class="mb-4"/>
+		<div class="row">
+			@foreach (var item in Model.Items)
+			{
+				<div class="col-md-3 col-sm-6">
+					<div class="product-grid">
+						<div class="product-image">
+							<a href="#">
+								<img class="pic" src="@Url.Action("Process", "Image", new { ImageId = item.ImageId})" alt="@item.Name" />
+							</a>
+							<ul class="social">
+								<li><a href="" class="fa fa-search"></a></li>
+								<li>
+									<form asp-action="Remove" asp-controller="WishList"
+										  asp-route-itemId="@item.Id">
+										<button type="submit" style="color:red; border-color:red;" class="fa fa-trash" />
+									</form>
+								</li>
+								<li>
+									<form asp-action="AddToCart" asp-controller="ShoppingCart"
+										  asp-route-itemId="@item.Id" asp-route-backUrl="@Context.Request.GetPathAndQuery()" asp-route-quantity="1">
+										<button type="submit" class="fa fa-shopping-cart" />
+									</form>
+								</li>
+							</ul>
+							<span class="product-new-label">New</span>
+						</div>
+						<div class="product-content">
+							<h3 class="title"><a href="#">@item.Name</a></h3>
+							@*<ul class="rating"> Будет, но чуть по позже
+									<li class="fa fa-star"></li>
+									<li class="fa fa-star"></li>
+									<li class="fa fa-star"></li>
+									<li class="fa fa-star"></li>
+									<li class="fa fa-star"></li>
+								</ul>*@
+							<div class="price">
+								$@item.Price
+								<span>$@item.Price</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	}
+</div>
+
+

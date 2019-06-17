@@ -1,0 +1,72 @@
+﻿@model CatalogFilterViewModel
+
+@if (Model.Pagination.TotalItems > Model.Pagination.ItemsPerPage)
+{
+    <nav class="page-filter-navigation" aria-label="page-navigation">
+        <ul class="pagination">
+            @if (Model.Pagination.CurrentPage > 1)
+            {
+                if (Model.Pagination.PreviousPage != 1)
+                {
+                    <li class="page-item">
+                        <a asp-controller="Catalog" asp-action="Catalog"
+                           asp-route-currentPage="1" asp-route-itemsPerPage="@Model.Pagination.ItemsPerPage"
+                           asp-route-currentBrand="@Model.Filter.FilterByBrand.CurrentBrand"
+                           asp-route-sortBy="@Model.Filter.SortingBy"
+                           class="page-link" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                }
+
+                <li class="page-item">
+                    <a asp-controller="Catalog" asp-action="Catalog"
+                       asp-route-currentPage="@Model.Pagination.PreviousPage" asp-route-itemsPerPage="@Model.Pagination.ItemsPerPage"
+                       asp-route-currentBrand="@Model.Filter.FilterByBrand.CurrentBrand"
+                       asp-route-sortBy="@Model.Filter.SortingBy"
+                       class="page-link">
+                        @Model.Pagination.PreviousPage
+                    </a>
+                </li>
+            }
+
+            <li class="page-item active">
+                <a asp-controller="Catalog" asp-action="Catalog"
+                   asp-route-currentPage="@Model.Pagination.CurrentPage" asp-route-itemsPerPage="@Model.Pagination.ItemsPerPage"
+                   asp-route-currentBrand="@Model.Filter.FilterByBrand.CurrentBrand"
+                   asp-route-sortBy="@Model.Filter.SortingBy"
+                   class="page-link">
+                    @Model.Pagination.CurrentPage
+                </a>
+            </li>
+
+            @if (Model.Pagination.CurrentPage < Model.Pagination.TotalPages)
+            {
+                <li class="page-item">
+                    <a asp-controller="Catalog" asp-action="Catalog"
+                       asp-route-currentPage="@Model.Pagination.NextPage" asp-route-itemsPerPage="@Model.Pagination.ItemsPerPage"
+                       asp-route-currentBrand="@Model.Filter.FilterByBrand.CurrentBrand"
+                       asp-route-sortBy="@Model.Filter.SortingBy"
+                       class="page-link">
+                        @Model.Pagination.NextPage
+                    </a>
+                </li>
+
+                if (Model.Pagination.NextPage != Model.Pagination.TotalPages)
+                {
+                    <li class="page-item">
+                        <a asp-controller="Catalog" asp-action="Catalog"
+                           asp-route-currentPage="@Model.Pagination.TotalPages" asp-route-itemsPerPage="@Model.Pagination.ItemsPerPage"
+                           asp-route-currentBrand="@Model.Filter.FilterByBrand.CurrentBrand"
+                           asp-route-sortBy="@Model.Filter.SortingBy"
+                           class="page-link" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+    </nav>
+}

@@ -1,0 +1,20 @@
+﻿@model FilterByBrandViewModel
+
+<div class="dropdown mr-3">
+    <button class="btn btn-outline-dark dropdown-toggle" type="button" data-toggle="dropdown">
+        Brand - @Model.CurrentBrand
+        <span class="caret"></span>
+    </button>
+    <div class="dropdown-menu">
+        @foreach (string brand in Model.Brands)
+        {
+            if (Model.CurrentBrand != brand)
+            {
+                <a asp-controller="Catalog" asp-action="Catalog" asp-route-currentBrand="@brand" class="dropdown-item text-dark">
+                    @brand
+                </a>
+            }
+        }
+    </div>
+</div>
+

@@ -1,0 +1,10 @@
+﻿@model string
+
+@{
+	ViewData["Title"] = "Success";
+}
+
+<div class="alert alert-success mb-4">
+	<h3 class="alert-heading">Welcome @Model!</h3>
+	<p>Your account has been successfully created. Click <a asp-action="Login" asp-controller="Auth">here</a> to login.</p>
+</div>

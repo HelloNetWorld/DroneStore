@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Success";
+}
+
+<div class="alert alert-success mb-4">
+    <h3 class="alert-heading">Thank you!</h3>
+    <p>Your order has been successfully created. </p>
+</div>
+<div class="">
+    <form asp-action="RemoveOrder" asp-controller="Order" asp-route-orderId="@ViewData["orderId"]">
+        <button class="btn btn-danger float-left" type="submit">
+            Cancel Order
+        </button>
+    </form>
+    <a class="btn btn-primary float-right" href="@Url.Action("Index", "Catalog")">
+        Continue shopping
+    </a>
+</div>
+
+

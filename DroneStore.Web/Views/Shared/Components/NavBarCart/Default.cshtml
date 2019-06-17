@@ -1,0 +1,11 @@
+﻿
+<a asp-action="Index" asp-controller="ShoppingCart"
+   asp-route-backUrl="@Context.Request.GetPathAndQuery()" class="button-badge nav-link">
+        <i class="fas fa-shopping-cart"></i>
+		Cart
+        @if ((int)ViewData["ItemsInCart"] > 0)
+        {
+            <span class="badge badge-danger badge-shopping-cart-alert">@ViewData["ItemsInCart"]</span>
+        }
+</a>
+

@@ -1,0 +1,9 @@
+﻿
+<a class="nav-link button-badge" asp-area="" asp-controller="WishList" asp-action="Index">
+	<i class="fas fa-heart"></i>
+	WishList
+	@if ((int)ViewData["WishList"] > 0)
+	{
+		<span class="badge badge-info badge-wishlist-alert">@ViewData["WishList"]</span>
+	}
+</a>

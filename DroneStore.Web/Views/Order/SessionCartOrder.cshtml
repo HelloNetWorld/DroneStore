@@ -1,0 +1,11 @@
+﻿@model OrderViewModel
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+<div class="mx-md-5">
+	@await Component.InvokeAsync("OrderItemsPreview", new { model = Model.ItemsPreview })
+
+	@await Component.InvokeAsync("OrderDetails", new { model = Model })
+</div>
+
