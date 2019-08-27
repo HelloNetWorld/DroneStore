@@ -2,6 +2,7 @@
 using System.Linq;
 using Ardalis.GuardClauses;
 using DroneStore.Core.Entities.Catalog;
+using DroneStore.Core.Entities.Discounts;
 using DroneStore.Core.Entities.Media;
 using DroneStore.Data;
 
@@ -56,15 +57,12 @@ namespace DroneStore.Services.Catalog
             Guard.Against.Null(catalogItem, nameof(catalogItem));
 
             _catalogRep.Insert(catalogItem);
-
-            var image = _imageRep.GetById(catalogItem.ImageId);
-            if (image != null)
-            {
-                _imageRep.Insert(image);
-            }
         }
 
         public IEnumerable<string> GetBrands() =>
             _catalogRep.EntitiesReadOnly.Select(e => e.Brand).Distinct();
+
+        public CatalogItem FindCatalogItemByDiscountId(int? discountId) =>
+            _catalogRep.EntitiesReadOnly.FirstOrDefault(ci => ci.DiscountId == discountId);
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -48,7 +49,18 @@ namespace DroneStore.Web.Controllers
 						.PasswordSignInAsync(user, login.Password, login.RememberMe, false);
 					if (result.Succeeded)
 					{
-						return Redirect(returnUrl ?? Url.Action("Index", "Home"));
+                        var roles = await _userManager.GetRolesAsync(user);
+                        if (roles.Any(r => r == "Admin"))
+                        {
+                            var url = string.IsNullOrEmpty(returnUrl)
+                                ? Url.Action("Index", "Home", new { area = "Admin" })
+                                : returnUrl;
+                            return Redirect(url);
+                        }
+
+                        return Redirect(string.IsNullOrEmpty(returnUrl)
+                                ? Url.Action("Index", "Home")
+                                : returnUrl);
 					}
 				}
 
@@ -137,7 +149,7 @@ namespace DroneStore.Web.Controllers
 				var user = new AppUser
 				{
 					Email = info.Principal.FindFirst(ClaimTypes.Email).Value,
-					UserName = info.Principal.FindFirst(ClaimTypes.Email).Value
+					UserName = info.Principal.FindFirst(ClaimTypes.Name).Value
 				};
 
 				var identityResult = await _userManager.CreateAsync(user);
@@ -150,6 +162,7 @@ namespace DroneStore.Web.Controllers
 						return View("Success", user.UserName);
 					}
 				}
+
 				return AccessDenied(null);
 			}
 		}
@@ -162,9 +175,7 @@ namespace DroneStore.Web.Controllers
 		}
 
 		[AllowAnonymous]
-		public IActionResult AccessDenied(string returnUrl)
-		{
-			return View();
-		}
+		public IActionResult AccessDenied(string returnUrl) => View();
+
 	}
 }

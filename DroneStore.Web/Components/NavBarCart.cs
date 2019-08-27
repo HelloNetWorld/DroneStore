@@ -8,10 +8,8 @@ namespace DroneStore.Web.Components
     {
         private readonly IShoppingCartViewModelService _shoppingCartService;
 
-        public NavBarCart(IShoppingCartViewModelService shoppingCartService)
-        {
+        public NavBarCart(IShoppingCartViewModelService shoppingCartService) =>
             _shoppingCartService = shoppingCartService;
-        }
 
         public IViewComponentResult Invoke()
         {

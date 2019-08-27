@@ -1,8 +1,6 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
-// Order form validation
-
 $("#order_form").validate({
     rules: {
         FirstName: "required",
@@ -41,15 +39,11 @@ $("#order_form").validate({
     }
 });
 
-// Shopping cart preview
-
 $("#shopping-cart-preview-header").click(function () {
     $("#shopping-cart-preview-body").slideToggle(); // display: block or none
 })
 
-// Login multi-toggler
-
-$(() => {
+$(function() {
     // Login Register Form
     $('#login-register-forms #forgot_pswd').click(toggleResetPswd);
     $('#login-register-forms #cancel_reset').click(toggleResetPswd);
@@ -68,3 +62,97 @@ function toggleSignUp(e) {
     $('#login-register-forms .form-sign-in').toggle(); // display:block or none
     $('#login-register-forms .form-sign-up').toggle(); // display:block or none
 }
+
+//Home/Index
+$('#top-selling-slider').slick({
+    arrows: true,
+    centerMode: true,
+    centerPadding: '40px',
+    slidesToShow: 4,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    prevArrow: $('#topselling-prev'),
+    nextArrow: $('#topselling-next'),
+    responsive: [
+        {
+            breakpoint: 992,
+            settings: {
+                arrows: false,
+                centerMode: true,
+                centerPadding: '35px',
+                slidesToShow: 2
+            }
+        },
+        {
+            breakpoint: 768,
+            settings: {
+                arrows: false,
+                centerMode: true,
+                centerPadding: '30px',
+                slidesToShow: 1
+            }
+        }
+    ]
+});
+
+$('#discount-items').slick({
+    arrows: true,
+    centerMode: true,
+    centerPadding: '40px',
+    slidesToShow: 4,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    prevArrow: $('#discount-prev'),
+    nextArrow: $('#discount-next'),
+    responsive: [
+        {
+            breakpoint: 992,
+            settings: {
+                arrows: false,
+                centerMode: true,
+                centerPadding: '35px',
+                slidesToShow: 2
+            }
+        },
+        {
+            breakpoint: 768,
+            settings: {
+                arrows: false,
+                centerMode: true,
+                centerPadding: '30px',
+                slidesToShow: 1
+            }
+        }
+    ]
+});
+
+$('#new-items').slick({
+    arrows: true,
+    centerMode: true,
+    centerPadding: '40px',
+    slidesToShow: 4,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    prevArrow: $('#new-items-prev'),
+    nextArrow: $('#new-items-next'),
+    responsive: [
+        {
+            breakpoint: 992,
+            settings: {
+                arrows: false,
+                centerMode: true,
+                centerPadding: '35px',
+                slidesToShow: 2
+            }
+        },
+        {
+            breakpoint: 768,
+            settings: {
+                arrows: false,
+                centerMode: true,
+                centerPadding: '30px',
+                slidesToShow: 1
+            }
+        }
+    ]
+});

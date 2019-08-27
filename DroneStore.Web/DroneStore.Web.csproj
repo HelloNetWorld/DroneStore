@@ -8,22 +8,21 @@
 
   <ItemGroup>
     <Compile Remove="Identity\Migrations\**" />
-    <Compile Remove="Infrastructure\**" />
     <Content Remove="Identity\Migrations\**" />
-    <Content Remove="Infrastructure\**" />
     <EmbeddedResource Remove="Identity\Migrations\**" />
-    <EmbeddedResource Remove="Infrastructure\**" />
     <None Remove="Identity\Migrations\**" />
-    <None Remove="Infrastructure\**" />
   </ItemGroup>
 
 
   <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.2.2" />
     <PackageReference Include="FluentValidation.ValidatorAttribute" Version="8.2.3" />
+    <PackageReference Include="Google.Apis" Version="1.40.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="morelinq" Version="3.1.1" />
   </ItemGroup>
 
 

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DroneStore.Core.Entities.Catalog;
 using DroneStore.Services.Catalog;
-using DroneStore.Services.Services.Discounts;
 using DroneStore.Web.Extensions;
 using DroneStore.Web.Models;
 
@@ -11,16 +11,16 @@ namespace DroneStore.Web.Services
     public class CatalogViewModelService : ICatalogViewModelService
     {
         private readonly ICatalogService _catalogService;
-		private readonly IDiscountService _discountService;
+        private readonly IDiscountViewModelService _discountViewModelService;
 
         public CatalogViewModelService(ICatalogService catalogService,
-			IDiscountService discountService)
+            IDiscountViewModelService discountViewModelService)
         {
             _catalogService = catalogService;
-			_discountService = discountService;
+            _discountViewModelService = discountViewModelService;
         }
 
-        public CatalogViewModel GetAll()
+        public CatalogViewModel GetCatalogModel()
         {
             var catalogFilter = new CatalogFilterViewModel
             {
@@ -28,7 +28,7 @@ namespace DroneStore.Web.Services
                 {
                     FilterByBrand = new FilterByBrandViewModel
                     {
-                        Brands =  GetBrands(),
+                        Brands = GetBrands(),
                         CurrentBrand = "All"
                     },
                     SortingBy = SortBy.None
@@ -49,6 +49,15 @@ namespace DroneStore.Web.Services
             };
 
             return viewmodel;
+        }
+
+        public CatalogItemViewModel GetById(int itemId)
+        {
+            var item = _catalogService.GetById(itemId);
+
+            var catalogItem = CreateCatalogItemVM(item);
+
+            return catalogItem;
         }
 
         public CatalogViewModel GetItems(int? currentPage, int? itemsPerPage, string currentBrand, SortBy? sortBy)
@@ -96,10 +105,14 @@ namespace DroneStore.Web.Services
             return viewmodel;
         }
 
+        public IEnumerable<CatalogItemViewModel> GetAllItems =>
+            _catalogService.GetAll()
+            .Select(ci => CreateCatalogItemVM(ci));
+
         private IEnumerable<string> GetBrands()
         {
             var brands = new List<string> { "All" };
-            brands.AddRange(_catalogService.GetBrands());            
+            brands.AddRange(_catalogService.GetBrands());
             return brands;
         }
 
@@ -108,28 +121,21 @@ namespace DroneStore.Web.Services
                 .BrandFilter(catalogFilter.Filter.FilterByBrand.CurrentBrand)
                 .SortByFilter(catalogFilter.Filter.SortingBy)
                 .PageFilter(catalogFilter.Pagination)
-                .Select(ci => new CatalogItemViewModel
-                {
-                    Id = ci.Id,
-                    ImageId = ci.ImageId,
-                    Name = ci.Name,
-                    Price = ci.Price,
-					HasDiscount = HasDiscount(ci.DiscountId),
-					DiscountId = ci.DiscountId
-                });
+                .Select(ci => CreateCatalogItemVM(ci));
 
         private int GetTotalItems(FilterViewModel filter) =>
             _catalogService.GetAll().BrandFilter(filter.FilterByBrand.CurrentBrand).Count();
 
-		private bool HasDiscount(int? discountId)
-		{
-			if (!discountId.HasValue) return false;
-			var discount = _discountService.GetById(discountId.Value);
-
-			if (discount == null) return false;
-
-			return DateTime.Compare(
-				discount.ExpireDateInUtc, DateTime.Now.ToUniversalTime()) > 0;
-		}
-	}
+        private CatalogItemViewModel CreateCatalogItemVM(CatalogItem catalogItem) =>
+            new CatalogItemViewModel
+            {
+                Id = catalogItem.Id,
+                ImageId = catalogItem.ImageId,
+                Name = catalogItem.Name,
+                Price = catalogItem.Price,
+                HasDiscount = _discountViewModelService.HasDiscount(catalogItem.DiscountId),
+                DiscountId = catalogItem.DiscountId,
+                IsNew = catalogItem.IsNew()
+            };
+    }
 }

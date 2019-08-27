@@ -11,7 +11,6 @@ namespace DroneStore.Web.Models.Discount
 		public int DiscountId { get; set; }
 		public int ItemId { get; set; }
 
-		public bool IsExpired =>
-			DateTime.Compare(ExpireDate, DateTime.Now.ToUniversalTime()) > 0;
+		public bool IsExpired => DateTime.UtcNow > ExpireDate;
 	}
 }

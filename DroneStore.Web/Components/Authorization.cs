@@ -4,9 +4,6 @@ namespace DroneStore.Web.Components
 {
     public class Authorization : ViewComponent
     {
-        public IViewComponentResult Invoke()
-        {
-            return View();
-        }
+        public IViewComponentResult Invoke() => View();
     }
 }

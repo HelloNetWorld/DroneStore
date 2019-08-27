@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using DroneStore.Web.Infrastructure;
 
 namespace DroneStore.Web.Models.Order
 {
-    public class OrderViewModel
+    public class OrderViewModel : IErrors
     {
         public OrderViewModel()
         {
-            ValidationErrors = new List<string>();
+            Errors = new List<string>();
         }
 
         public DateTime CreationDate { get; set; }
@@ -34,6 +35,6 @@ namespace DroneStore.Web.Models.Order
         [DisplayName("Last Name")]
         public string LastName { get; set; }
 
-        public ICollection<string> ValidationErrors { get; set; }
+        public ICollection<string> Errors { get; set; }
     }
 }

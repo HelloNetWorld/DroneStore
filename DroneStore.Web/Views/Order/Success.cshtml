@@ -7,9 +7,9 @@
     <h3 class="alert-heading">Thank you!</h3>
     <p>Your order has been successfully created. </p>
 </div>
-<div class="">
+<div class="d-flex justify-content-between">
     <form asp-action="RemoveOrder" asp-controller="Order" asp-route-orderId="@ViewData["orderId"]">
-        <button class="btn btn-danger float-left" type="submit">
+        <button class="btn btn-danger" type="submit">
             Cancel Order
         </button>
     </form>

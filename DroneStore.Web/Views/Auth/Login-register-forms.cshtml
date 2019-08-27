@@ -23,7 +23,7 @@
 	<form class="form-sign-in" asp-action="Login" asp-controller="Auth" method="post">
 		<h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Log in</h1>
 		<div class="social-login">
-			<a href="#" class="btn facebook-btn social-btn"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </a>
+			<a hidden href="#" class="btn facebook-btn social-btn"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </a>
 			<a class="btn google-btn social-btn" asp-action="LogInExternal" asp-route-name="@googleScheme.Name"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </a>
 		</div>
 		@Html.TextBoxFor(m => m.Login.Email, new { @class = "form-control", placeholder = "Email address", required = "", autofocus = "" })
@@ -60,6 +60,5 @@
 		<button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i>Register</button>
 		<a href="#" id="cancel_signup"><i class="fas fa-angle-left"></i> Back</a>
 	</form>
-
 	<br>
 </div>

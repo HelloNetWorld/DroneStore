@@ -10,18 +10,11 @@ namespace DroneStore.Web.Controllers
     {
         private readonly ICatalogViewModelService _catalogViewModelService;
 
-        public CatalogController(ICatalogViewModelService catalogViewModelService)
-        {
+        public CatalogController(ICatalogViewModelService catalogViewModelService) =>
             _catalogViewModelService = catalogViewModelService;
-        }
 
-        public IActionResult Index()
-        {
-            var model = _catalogViewModelService.GetAll();
-            return View(model);
-        }
+        public IActionResult Index() => View(_catalogViewModelService.GetCatalogModel());
 
-        [HttpGet]
         public IActionResult Catalog(int? currentPage, int? itemsPerPage, 
             string currentBrand, SortBy? sortBy)
         {

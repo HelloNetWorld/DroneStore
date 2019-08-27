@@ -5,9 +5,6 @@ namespace DroneStore.Web.Components
 {
     public class FilterByBrand : ViewComponent
     {
-        public IViewComponentResult Invoke(FilterByBrandViewModel model)
-        {
-            return View(model);
-        }
+        public IViewComponentResult Invoke(FilterByBrandViewModel model) => View(model);
     }
 }

@@ -11,5 +11,6 @@ namespace DroneStore.Services.Catalog
         void Update(CatalogItem catalogItem);
         void Insert(CatalogItem catalogItem);
         IEnumerable<string> GetBrands();
+        CatalogItem FindCatalogItemByDiscountId(int? discountId);
     }
 }

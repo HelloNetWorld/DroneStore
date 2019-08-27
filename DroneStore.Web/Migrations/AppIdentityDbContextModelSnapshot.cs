@@ -29,6 +29,8 @@ namespace DroneStore.Web.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<DateTime>("CreationDateInUtc");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 

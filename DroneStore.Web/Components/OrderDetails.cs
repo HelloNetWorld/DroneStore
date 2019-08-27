@@ -5,9 +5,6 @@ namespace DroneStore.Web.Components
 {
     public class OrderDetails : ViewComponent
     {
-        public IViewComponentResult Invoke(OrderViewModel model)
-        {
-            return View(model);
-        }
+        public IViewComponentResult Invoke(OrderViewModel model) => View(model);
     }
 }

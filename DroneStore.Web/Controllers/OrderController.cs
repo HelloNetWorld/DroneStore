@@ -6,40 +6,43 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DroneStore.Web.Controllers
 {
-	[AllowAnonymous]
+    [AllowAnonymous]
 	public class OrderController : Controller
     {
         private readonly IOrderViewModelService _orderService;
+        private readonly IShoppingCartViewModelService _shoppingCartService;
 
-        public OrderController(IOrderViewModelService orderService)
+        public OrderController(IOrderViewModelService orderService,
+            IShoppingCartViewModelService shoppingCartService)
         {
             _orderService = orderService;
+            _shoppingCartService = shoppingCartService;
         }
 
-        public IActionResult SessionCartOrder()
-        {
-            var model = _orderService.PrepareSessionCartOrder();
-            return View(model);
-        }
+        public IActionResult SessionCartOrder() =>
+            View(_orderService.PrepareSessionCartOrder());
 
         [HttpPost]
 		[ValidateAntiForgeryToken]
-        public IActionResult AddOrder(OrderViewModel order)
+        public IActionResult SessionCartOrder(OrderViewModel order)
         {
             var validator = new OrderValidator();
             var validationResult = validator.Validate(order);
+
             if (!validationResult.IsValid)
             {
                 var model = _orderService.PrepareSessionCartOrder();
-                foreach(var error in validationResult.Errors)
+
+                foreach (var error in validationResult.Errors)
                 {
-                    model.ValidationErrors.Add(error.ToString());
+                    model.Errors.Add(error.ToString());
                 }
 
-                return View("SessionCartOrder", model);
+                return View(model);
             }
 
             int orderId = _orderService.AddOrder(order);
+            _shoppingCartService.Cart.Lines.Clear();
 
             ViewData["orderId"] = orderId;
 
@@ -47,6 +50,7 @@ namespace DroneStore.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult RemoveOrder(int orderId)
         {
             _orderService.RemoveOrder(orderId);

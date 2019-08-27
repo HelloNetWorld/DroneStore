@@ -5,9 +5,7 @@ namespace DroneStore.Web.Components
 {
     public class CartTotal : ViewComponent
     {
-        public IViewComponentResult Invoke(ShoppingCartViewModel model)
-        {
-            return View(model);
-        }
+        public IViewComponentResult Invoke(ShoppingCartViewModel model) =>
+            View(model);
     }
 }

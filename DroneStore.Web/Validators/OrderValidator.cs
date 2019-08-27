@@ -10,16 +10,21 @@ namespace DroneStore.Web.Validators
 			RuleFor(o => o.Address1)
 				.NotEmpty()
 				.Length(20, 250);
+
 			RuleFor(o => o.CustomerEmail)
 				.NotEmpty()
 				.EmailAddress();
+
 			RuleFor(o => o.FirstName)
 				.NotEmpty();
+
 			RuleFor(o => o.LastName)
 				.NotEmpty();
+
 			RuleFor(o => o.PhoneNumber)
 				.NotEmpty()
 				.Length(10, 20);
+
 			RuleFor(o => o.ZipCode)
 				.NotEmpty();
 		}

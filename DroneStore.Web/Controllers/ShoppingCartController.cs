@@ -9,12 +9,9 @@ namespace DroneStore.Web.Controllers
     {
         private readonly IShoppingCartViewModelService _cartService;
 
-        public ShoppingCartController(IShoppingCartViewModelService cartService)
-        {
+        public ShoppingCartController(IShoppingCartViewModelService cartService) =>
             _cartService = cartService;
-        }
 
-        [HttpGet]
         public IActionResult Index(string backUrl)
         {
             var model = _cartService.Cart;
@@ -38,7 +35,6 @@ namespace DroneStore.Web.Controllers
             return View("Index", _cartService.Cart);
         }
 
-		//[HttpPost]
         public IActionResult Clear()
         {
             _cartService.Clear();

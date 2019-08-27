@@ -1,0 +1,44 @@
+﻿@model IEnumerable<UserViewModel>
+@{
+    ViewData["Title"] = "All products";
+}
+
+<div class="content-padder">
+    <div class="m-3">
+        <table class="table table-striped table-bordered table-sm">
+            <tr>
+                <th class="text-center">ID</th>
+                <th>UserName</th>
+                <th>Creation Date</th>
+                <th class="text-right">Email</th>
+                <th class="text-center">Roles</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td class="text-right">@user.AppUser.Id</td>
+                    <td>@user.AppUser.UserName</td>
+                    <td class="text-center">@user.AppUser.CreationDateInUtc</td>
+                    <td class="text-right">@user.AppUser.Email</td>
+                    <td class="text-center">@user.Roles</td>
+                    <td class="text-center">
+                        <div class="btn btn-group">
+                            <a asp-action="Edit" class="btn btn-sm btn-primary mr-1"
+                               asp-route-Id="@user.AppUser.Id">
+                                Edit
+                            </a>
+                            <form asp-action="Delete" method="post">
+                                <input type="hidden" name="Id" value="@user.AppUser.Id" />
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+

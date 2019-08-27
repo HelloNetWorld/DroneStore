@@ -9,23 +9,17 @@ namespace DroneStore.Web.Controllers
     {
 		public readonly IWishListViewModelService _wishListViewModelService;
 
-		public WishListController(IWishListViewModelService wishListViewModelService)
-		{
-			_wishListViewModelService = wishListViewModelService;
-		}
+		public WishListController(IWishListViewModelService wishListViewModelService) =>
+            _wishListViewModelService = wishListViewModelService;
 
-        public IActionResult Index()
-        {
-			var model = _wishListViewModelService.WishList;
-            return View(model);
-        }
+        public IActionResult Index() => View(_wishListViewModelService.WishList);
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public IActionResult Add(int itemId)
 		{
 			_wishListViewModelService.Add(itemId);
-			return View("Index", _wishListViewModelService.WishList);
+			return View(nameof(Index), _wishListViewModelService.WishList);
 		}
 
 		[HttpPost]
@@ -33,7 +27,7 @@ namespace DroneStore.Web.Controllers
 		public IActionResult Remove(int itemId)
 		{
 			_wishListViewModelService.Remove(itemId);
-			return View("Index", _wishListViewModelService.WishList);
+			return View(nameof(Index), _wishListViewModelService.WishList);
 		}
     }
 }

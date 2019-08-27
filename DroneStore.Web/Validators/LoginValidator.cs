@@ -10,6 +10,7 @@ namespace DroneStore.Web.Validators
 			RuleFor(l => l.Email)
 				.EmailAddress()
 				.NotEmpty();
+
 			RuleFor(l => l.Password)
 				.NotEmpty();	
 		}

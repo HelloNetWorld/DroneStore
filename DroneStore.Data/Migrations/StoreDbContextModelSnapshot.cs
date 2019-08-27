@@ -42,13 +42,40 @@ namespace DroneStore.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("Quantity");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("DiscountId");
+                    b.HasIndex("DiscountId")
+                        .IsUnique()
+                        .HasFilter("[DiscountId] IS NOT NULL");
 
                     b.HasIndex("ImageId");
 
                     b.ToTable("CatalogItems");
+                });
+
+            modelBuilder.Entity("DroneStore.Core.Entities.Currency.ExchangeRate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("LastUpdateInUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Quote")
+                        .IsRequired();
+
+                    b.Property<decimal>("Rate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Source")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExchangeRates");
                 });
 
             modelBuilder.Entity("DroneStore.Core.Entities.Discounts.Discount", b =>
@@ -183,8 +210,8 @@ namespace DroneStore.Data.Migrations
             modelBuilder.Entity("DroneStore.Core.Entities.Catalog.CatalogItem", b =>
                 {
                     b.HasOne("DroneStore.Core.Entities.Discounts.Discount", "Discount")
-                        .WithMany()
-                        .HasForeignKey("DiscountId")
+                        .WithOne()
+                        .HasForeignKey("DroneStore.Core.Entities.Catalog.CatalogItem", "DiscountId")
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("DroneStore.Core.Entities.Media.Image", "Image")

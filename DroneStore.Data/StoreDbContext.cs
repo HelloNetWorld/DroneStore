@@ -1,4 +1,5 @@
 ﻿using DroneStore.Core.Entities.Catalog;
+using DroneStore.Core.Entities.Currency;
 using DroneStore.Core.Entities.Discounts;
 using DroneStore.Core.Entities.Media;
 using DroneStore.Core.Entities.Orders;
@@ -14,10 +15,6 @@ namespace DroneStore.Data
 		{
 		}
 
-		//public DbSet<Multicopter> Multicopters { get; set; }
-		//public DbSet<Battery> Batteries { get; set; }
-		//public DbSet<Camera> Cameras { get; set; }
-
 		public DbSet<CatalogItem> CatalogItems { get; set; }
 
 		public DbSet<Image> Images { get; set; }
@@ -27,6 +24,8 @@ namespace DroneStore.Data
 		public DbSet<OrderItem> OrderItems { get; set; }
 
 		public DbSet<Discount> Discounts { get; set; }
+
+        public DbSet<ExchangeRate> ExchangeRates { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
@@ -39,9 +38,7 @@ namespace DroneStore.Data
 
 			builder.Entity<Discount>(ConfigureDiscount);
 
-			//builder.Entity<Multicopter>(ConfigureMulticopter);
-			//builder.Entity<Battery>(ConfigureBattery);
-			//builder.Entity<Camera>(ConfigureCamera);
+            builder.Entity<ExchangeRate>(ConfigureExchangeRate);
 		}
 
 		#region Orders
@@ -146,14 +143,17 @@ namespace DroneStore.Data
 				.IsRequired();
 
 			builder.HasOne(ci => ci.Image)
-				.WithMany()
-				.HasForeignKey(c => c.ImageId)
-				.OnDelete(DeleteBehavior.Cascade);
+                .WithOne()
+                .HasForeignKey<CatalogItem>(ci => ci.ImageId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-			builder.HasOne(ci => ci.Discount)
-				.WithMany()
-				.HasForeignKey(ci => ci.DiscountId)
-				.OnDelete(DeleteBehavior.SetNull);
+            builder.HasOne(ci => ci.Discount)
+                .WithOne()
+                .HasForeignKey<CatalogItem>(d => d.DiscountId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            builder.Property(ci => ci.Quantity)
+                .IsRequired();
 		}
 
 		#endregion Catalog
@@ -193,81 +193,35 @@ namespace DroneStore.Data
 				.HasColumnType("datetime2")
 				.IsRequired();
 
-			//builder.HasOne(s => s.CatalogItem)
-			//	.WithOne(d => d.Discount)
-			//	.HasForeignKey<CatalogItem>(d => d.DiscountId)
-			//	.OnDelete(DeleteBehavior.Restrict);
-		}
+            //builder.HasOne(s => s.CatalogItem)
+            //    .WithOne(d => d.Discount)
+            //    .HasForeignKey<CatalogItem>(d => d.DiscountId)
+            //    .OnDelete(DeleteBehavior.Restrict);
+        }
 
-		#endregion
+        #endregion
 
-		//private void ConfigureMulticopter(EntityTypeBuilder<Multicopter> builder)
-		//{
-		//    builder.Property(m => m.Description)
-		//         .HasMaxLength(750)
-		//         .IsRequired();
+        #region Exchange Rate
 
-		//    builder.Property(m => m.FullDescription)
-		//         .HasMaxLength(1500)
-		//         .IsRequired();
+        public static void ConfigureExchangeRate(EntityTypeBuilder<ExchangeRate> builder)
+        {
+            builder.HasKey(e => e.Id);
 
-		//    builder.Property(m => m.ShortDescription)
-		//         .HasMaxLength(500)
-		//         .IsRequired();
+            builder.Property(e => e.Source)
+                .IsRequired();
 
-		//    builder.Property(m => m.Dimensions)
-		//         .HasMaxLength(200)
-		//         .IsRequired();
+            builder.Property(e => e.Quote)
+                .IsRequired();
 
-		//    builder.Property(m => m.Equipment)
-		//         .HasMaxLength(300);
+            builder.Property(e => e.Rate)
+                .HasPrecision(18, 2)
+                .IsRequired();
 
-		//    builder.Property(m => m.FullWeight)
-		//         .IsRequired();
+            builder.Property(e => e.LastUpdateInUtc)
+                .HasColumnType("datetime2")
+                .IsRequired();
+        }
 
-		//    builder.Property(m => m.MaxFlightDistance)
-		//         .IsRequired();
-
-		//    builder.Property(m => m.MobileOSSupport)
-		//         .HasMaxLength(200)
-		//         .IsRequired();
-
-		//    builder.Property(m => m.NumberOfMotors)
-		//         .IsRequired();
-
-		//    builder.Property(m => m.Price)
-		//         .HasPrecision(11, 2)
-		//         .IsRequired();
-
-		//    builder.Property(m => m.Quantity)
-		//         .IsRequired();
-
-		//    builder.Property(m => m.Sensors)
-		//         .HasMaxLength(500)
-		//         .IsRequired();
-
-		//    builder.Property(a => a.TypeOfFlightControl)
-		//         .HasMaxLength(500)
-		//         .IsRequired();
-		//}
-
-		//private void ConfigureBattery(EntityTypeBuilder<Battery> builder)
-		//{
-		//    builder.Property(b => b.Capacity)
-		//         .IsRequired();
-
-		//    builder.Property(b => b.Description)
-		//         .HasMaxLength(750);
-
-		//    builder.Property(b => b.Voltage)
-		//         .IsRequired();
-		//}
-
-		//private void ConfigureCamera(EntityTypeBuilder<Camera> builder)
-		//{
-		//    builder.Property(m => m.Description)
-		//         .HasMaxLength(750)
-		//         .IsRequired();
-		//}
-	}
+        #endregion Exchange Rate
+    }
 }

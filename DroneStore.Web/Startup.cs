@@ -1,9 +1,12 @@
 ﻿using System;
 using DroneStore.Data;
 using DroneStore.Services.Catalog;
+using DroneStore.Services.Currency;
+using DroneStore.Services.Currency.Provider;
 using DroneStore.Services.Media;
 using DroneStore.Services.Services.Discounts;
 using DroneStore.Services.Services.Orders;
+using DroneStore.Web.Areas.Admin.Services;
 using DroneStore.Web.Identity;
 using DroneStore.Web.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -61,19 +64,27 @@ namespace DroneStore.Web
             services.AddTransient<DbContext, StoreDbContext>();
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
+            services.AddHttpClient();
+            services.AddScoped<ICurrencyProvider, ApiLayerCurrencyProvider>();
+
             services.AddHttpContextAccessor();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             services.AddScoped<ICatalogService, CatalogService>();
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderItemService, OrderItemService>();
             services.AddScoped<IDiscountService, DiscountService>();
+            services.AddScoped<ICurrencyService, CurrencyService>();
 
             services.AddScoped<ICatalogViewModelService, CatalogViewModelService>();
             services.AddScoped<IShoppingCartViewModelService, ShoppingCartViewModelService>();
             services.AddScoped<IOrderViewModelService, OrderViewModelService>();
             services.AddScoped<IWishListViewModelService, WishListViewModelService>();
             services.AddScoped<IDiscountViewModelService, DiscountViewModelService>();
+            services.AddScoped<IHomeViewModelService, HomeViewModelService>();
+
+            services.AddScoped<IAdminViewModelService, AdminViewModelService>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 //.AddFacebook("FaceBook", options =>
@@ -128,6 +139,11 @@ namespace DroneStore.Web
                 routes.MapRoute(
                     name: "shoppingcart",
                     template: "{controller=ShoppingCart}/{action=Index}/{itemId?}/{quantity?}/{backUrl?}");
+
+                routes.MapRoute(
+                  name: "admin",
+                  template: "{area:exists}/{controller}/{action}/{id?}");
+
             });
 
             IdentitySettings.SeedAccounts(app.ApplicationServices, Configuration).Wait();

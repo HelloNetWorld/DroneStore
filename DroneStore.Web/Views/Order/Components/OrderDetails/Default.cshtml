@@ -1,11 +1,4 @@
 ﻿@model OrderViewModel
-@inject IAuthenticationSchemeProvider schemeProvider
-
-@{ 
-	var res = await schemeProvider.GetSchemeAsync("Google");
-	var res2 = await schemeProvider.GetDefaultAuthenticateSchemeAsync();
-}
-
 @{
 	ViewData["Title"] = "Order";
 }
@@ -16,17 +9,18 @@
 		<span>Shipping address</span>
 	</div>
 	<div class="card-body">
-		@if (Model.ValidationErrors.Any())
-		{
+		@if (Model.Errors.Any())
+        {
 			<div class="message-warnings">
 				<ul>
-					@foreach (var error in Model.ValidationErrors)
-					{
+					@foreach (var error in Model.Errors)
+                    {
 						<li>@error</li>
 					}
 				</ul>
 			</div>
 		}
+
 		<div class="col-md-12">
 			<form asp-action="AddOrder" method="post" class="form-horizontal" id="order_form">
 				<div class="row">
@@ -34,7 +28,6 @@
 						@Html.LabelFor(x => x.FirstName)
 						@Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", placeholder = "First Name", name = "first_name" })
 					</div>
-
 					<div class="col-md-6 mb-3">
 						@Html.LabelFor(x => x.LastName)
 						@Html.TextBoxFor(x => x.LastName, new { @class = "form-control", placeholder = "Last Name" })
@@ -44,7 +37,6 @@
 					@Html.LabelFor(x => x.CustomerEmail)
 					@Html.TextBoxFor(x => x.CustomerEmail, new { @class = "form-control", placeholder = "Email", type = "email" })
 				</div>
-
 				<div class="mb-3">
 					@Html.LabelFor(x => x.Address1)
 					@Html.TextBoxFor(x => x.Address1, new { @class = "form-control", placeholder = "Address 1" })
@@ -53,7 +45,6 @@
 					@Html.LabelFor(x => x.Address2)
 					@Html.TextBoxFor(x => x.Address2, new { @class = "form-control", placeholder = "Address 2" })
 				</div>
-
 				<div class="row mb-3">
 					<div class="col-md-4">
 						@Html.LabelFor(x => x.PhoneNumber)

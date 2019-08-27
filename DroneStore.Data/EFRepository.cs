@@ -19,10 +19,7 @@ namespace DroneStore.Data
 
         public virtual IEnumerable<TEntity> EntitiesReadOnly => DbSet.AsNoTracking().AsEnumerable();
 
-        public virtual TEntity GetById(object id)
-		{
-			return DbSet.Find(id);
-		}
+        public virtual TEntity GetById(object id) => DbSet.Find(id);
 
         public virtual void Insert(TEntity entity)
 		{

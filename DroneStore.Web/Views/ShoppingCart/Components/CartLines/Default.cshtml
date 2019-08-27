@@ -15,7 +15,7 @@
 			@foreach (var line in Model)
 			{
 				<tr>
-					<td class="m-auto">
+					<td class="shopping-cart-image">
 						<img src="@Url.Action("Process", "Image", new { ImageId = line.ImageId})" alt="@line.Name" />
 					</td>
 					<td>@line.Name</td>

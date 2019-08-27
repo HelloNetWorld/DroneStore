@@ -11,25 +11,23 @@ namespace DroneStore.Web.Controllers
     {
         private readonly ICatalogService _catalogService;
 
-        public HomeController(ICatalogService catalogService)
-        {
+        public HomeController(ICatalogService catalogService) =>
             _catalogService = catalogService;
-        }
 
-        public IActionResult Index()
-        {
-            return View();
-        }           
+        public IActionResult Index() => View();
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        public IActionResult AboutUs() => View();
+
+        public IActionResult ContactUs() => View();
+
+        public IActionResult Privacy() => View();
+
+        public IActionResult OrdersAndReturns() => View();
+
+        public IActionResult Conditions() => View();
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        public IActionResult Error() =>
+            View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }

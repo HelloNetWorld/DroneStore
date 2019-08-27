@@ -1,0 +1,67 @@
+﻿@model IEnumerable<CatalogItemViewModel>
+
+<div class="my-2">
+    <h5 class="text-capitalize my-1">New</h5>
+    <div class="slick-slider" id="new-items">
+        @foreach (var item in Model)
+        {
+            <div class="slick-slide">
+                <div class="product-grid">
+                    <div class="product-image">
+                        <a href="#">
+                            <img class="pic" src="@Url.Action("Process", "Image", new { ImageId = item.ImageId})" alt="@item.Name" />
+                        </a>
+                        <ul class="social">
+                            <li><a href="" class="fa fa-search"></a></li>
+                            <li>
+                                <form asp-action="Add" asp-controller="WishList"
+                                      asp-route-itemId="@item.Id">
+                                    <button type="submit" class="fa fa-heart" />
+                                </form>
+                            </li>
+                            <li>
+                                <form asp-action="AddToCart" asp-controller="ShoppingCart"
+                                      asp-route-itemId="@item.Id" asp-route-backUrl="@Context.Request.GetPathAndQuery()" asp-route-quantity="1">
+                                    <button type="submit" class="fa fa-shopping-cart" />
+                                </form>
+                            </li>
+                        </ul>
+                        @if (item.HasDiscount)
+                        {
+                            <span class="product-discount-label fas fa-percentage"></span>
+                        }
+                        @if (item.IsNew)
+                        {
+                            <span class="product-new-label">New</span>
+                        }
+                    </div>
+                    <div class="product-content">
+                        <h3 class="title"><a href="#">@item.Name</a></h3>
+                        @*<ul class="rating"> Будет, но чуть по позже
+                                <li class="fa fa-star"></li>
+                                <li class="fa fa-star"></li>
+                                <li class="fa fa-star"></li>
+                                <li class="fa fa-star"></li>
+                                <li class="fa fa-star"></li>
+                            </ul>*@
+                        @if (item.HasDiscount)
+                        {
+                            @await Component.InvokeAsync("Discount", new { itemId = item.DiscountId })
+                        }
+                        else
+                        {
+                            <div class="price">
+                                $@item.Price
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="my-3">
+        <button id="new-items-prev" class="slick-prev"><i class="fas fa-arrow-left"></i></button>
+        <button id="new-items-next" class="slick-next"><i class="fas fa-arrow-right"></i></button>
+    </div>
+</div>
+<hr class="dark-line"/>

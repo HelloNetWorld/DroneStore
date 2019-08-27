@@ -1,0 +1,23 @@
+﻿@model SidebarViewModel
+
+<div id="sidebar" class="tm-sidebar-left uk-background-default">
+    <center>
+        <div class="user">
+            <img id="avatar" width="100" class="uk-border-circle" src="~/icons/no-image.jpg" />
+            <div class="uk-margin-top"></div>
+            <div id="name" class="uk-text-truncate">@Model.UserName</div>
+            <div id="email" class="uk-text-truncate">@Model.Email</div>
+            <span id="status" data-enabled="true" data-online-text="Online" data-away-text="Away" data-interval="600000" class="uk-margin-top uk-label uk-label-success"></span>
+        </div>
+        <br />
+    </center>
+    <ul class="uk-nav uk-nav-default">
+        <li class="uk-nav-header">
+            Data Tables
+        </li>
+        <li><a asp-action="Index" asp-controller="Catalog" asp-area="Admin">Catalog</a></li>
+        <li><a asp-action="Index" asp-controller="User" asp-area="Admin">Users</a></li>
+        <li><a asp-action="Index" asp-controller="Order" asp-area="Admin">Orders</a></li>
+        <li><a asp-action="Index" asp-controller="Discount" asp-area="Admin">Discounts</a></li>
+    </ul>
+</div>

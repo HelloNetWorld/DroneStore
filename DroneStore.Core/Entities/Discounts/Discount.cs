@@ -2,7 +2,7 @@
 
 namespace DroneStore.Core.Entities.Discounts
 {
-	public class Discount
+    public class Discount
 	{
 		public int Id { get; set; }
 		public DateTime StartDateInUtc { get; set; }

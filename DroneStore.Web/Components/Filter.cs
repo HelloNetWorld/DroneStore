@@ -5,9 +5,6 @@ namespace DroneStore.Web.Components
 {
     public class Filter : ViewComponent
     {
-        public IViewComponentResult Invoke(CatalogFilterViewModel model)
-        {
-            return View(model);
-        }
+        public IViewComponentResult Invoke(CatalogFilterViewModel model) => View(model);
     }
 }

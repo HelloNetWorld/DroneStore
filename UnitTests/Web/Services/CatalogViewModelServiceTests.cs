@@ -39,7 +39,7 @@ namespace UnitTests.Web.Services
         {
             var service = new CatalogViewModelService(_catalogService.Object, null);
 
-            var result = service.GetAll();
+            var result = service.GetCatalogModel();
 
             Assert.Equal(4, result.CatalogItems.Count());
             Assert.Equal(1, result.CatalogItems.First().Id);
