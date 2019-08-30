@@ -10,10 +10,8 @@ namespace DroneStore.Web.Areas.Admin.Components
     {
         private readonly UserManager<AppUser> _userManager;
 
-        public Sidebar(UserManager<AppUser> userManager)
-        {
+        public Sidebar(UserManager<AppUser> userManager) =>
             _userManager = userManager;
-        }
 
         public IViewComponentResult Invoke()
         {

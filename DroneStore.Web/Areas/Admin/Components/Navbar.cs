@@ -9,10 +9,8 @@ namespace DroneStore.Web.Areas.Admin.Components
     {
         private readonly UserManager<AppUser> _userManager;
 
-        public Navbar(UserManager<AppUser> userManager)
-        {
+        public Navbar(UserManager<AppUser> userManager) =>
             _userManager = userManager;
-        }
 
         public IViewComponentResult Invoke()
         {

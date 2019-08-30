@@ -10,9 +10,15 @@ namespace DroneStore.Web.Areas.Admin.Services
 {
     public class AdminViewModelService : IAdminViewModelService
     {
+        #region Fields
+
         private readonly IOrderItemService _orderItemService;
         private readonly IOrderService _orderService;
         private readonly UserManager<AppUser> _userManager;
+
+        #endregion
+
+        #region Constructor
 
         public AdminViewModelService(IOrderItemService orderItemService,
             IOrderService orderService,
@@ -23,16 +29,23 @@ namespace DroneStore.Web.Areas.Admin.Services
             _userManager = userManager;
         }
 
+        #endregion
+
+        #region Public Methods
+
         public DashboardViewModel PrepareDashboard()
         {
             var dashboard = new DashboardViewModel
             {
                 TotalIncome = GetTotalIncome(),
-                TotalIncomePercentageWeek = CalculateTotalIncomeWeekly(),
+                IncomeWeekly = GetIncomeWeekly(),
+                IncomePercentageWeekly = GetIncomePercentageWeekly(),
                 TotalOrders = GetTotalOrders(),
-                TotalOrdersPercentageWeek = CalculateTotalOrdersWeekly(),
+                OrdersWeekly = GetOrdersWeekly(),
+                OrdersPercentageWeekly = GetOrdersPercentageWeekly(),
                 TotalRegistrations = GetTotalRegistrations(),
-                TotalRegistrationsPercentageWeek = CalculateRegistrationsWeekly(),
+                RegistrationsWeekly = GetRegistrationsWeekly(),
+                RegistrationsPercentageWeekly = GetRegistrationsPercentageWeekly(),
                 Traffic = GetTraffic(),
                 Visitors = GetVisitors()
             };
@@ -55,34 +68,51 @@ namespace DroneStore.Web.Areas.Admin.Services
             }
         }
 
+        #endregion Public Methods
+
+        #region Private Methods
+
         private decimal GetTotalIncome() =>
             _orderItemService.GetAll().Sum(oi => oi.Quantity * oi.UnitPrice);
 
-        private int CalculateTotalIncomeWeekly()
+        private int GetIncomePercentageWeekly()
         {
-            var income = _orderItemService.GetAll().Sum(x => x.Quantity * x.UnitPrice);
+            var income = GetTotalIncome();
             if (income == 0) return 0;
 
-            var incomeWeekly = _orderItemService.GetAll()
-                .Where(oi => IsWeekly(oi.CreationDate))
-                .Sum(oi => oi.Quantity * oi.UnitPrice);
-
-            return (int)Math.Round(100 * incomeWeekly / income);
+            return (int)Math.Round(100 * GetIncomeWeekly() / income);
         }
 
         private int GetTotalOrders() => _orderService.GetAll().Count();
 
-        private int CalculateTotalOrdersWeekly() =>
-            _orderService.GetAll().Where(o => IsWeekly(o.CreationDate))
-            .Count();
+        private int GetOrdersPercentageWeekly()
+        {
+            var total = GetTotalOrders();
+            if (total == 0) return 0;
+
+            return (int)Math.Round(100.0 * GetOrdersWeekly() / total);
+        }
 
         private int GetTotalRegistrations() =>
             _userManager.Users.Count();
 
-        private int CalculateRegistrationsWeekly() =>
-            _userManager.Users.AsEnumerable()
+        private int GetRegistrationsPercentageWeekly() =>
+            _userManager.Users
             .Where(u => IsWeekly(u.CreationDateInUtc))
             .Count();
+
+        private decimal GetIncomeWeekly() =>
+            _orderItemService.GetAll()
+            .Where(oi => IsWeekly(oi.CreationDate))
+            .Sum(oi => oi.Quantity * oi.UnitPrice);
+
+        private int GetOrdersWeekly() =>
+            _orderService.GetAll().Where(o => IsWeekly(o.CreationDate)).Count();
+
+        private int GetRegistrationsWeekly() =>
+            _userManager.Users
+                .Where(u => IsWeekly(u.CreationDateInUtc))
+                .Count();
 
         private IDictionary<string, int> GetTraffic()
         {
@@ -94,7 +124,13 @@ namespace DroneStore.Web.Areas.Admin.Services
             return null;
         }
 
+        #endregion
+
+        #region Utilities
+
         private static bool IsWeekly(DateTime date) =>
             (DateTime.UtcNow - date) < TimeSpan.FromDays(7);
+
+        #endregion 
     }
 }

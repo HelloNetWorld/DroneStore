@@ -7,10 +7,9 @@ namespace DroneStore.Web.Models.Order
 {
     public class OrderViewModel : IErrors
     {
-        public OrderViewModel()
-        {
+        public OrderViewModel() =>
             Errors = new List<string>();
-        }
+
 
         public DateTime CreationDate { get; set; }
 

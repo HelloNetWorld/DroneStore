@@ -46,12 +46,6 @@ namespace DroneStore.Web.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // Todo: позже реализовать
-        public IActionResult Details(int id)
-        {
-            return View();
-        }
-
         //Get
         public IActionResult Create() => View();
 

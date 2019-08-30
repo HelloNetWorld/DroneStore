@@ -2,7 +2,6 @@
 using System.Linq;
 using Ardalis.GuardClauses;
 using DroneStore.Core.Entities.Catalog;
-using DroneStore.Core.Entities.Discounts;
 using DroneStore.Core.Entities.Media;
 using DroneStore.Data;
 
@@ -60,7 +59,7 @@ namespace DroneStore.Services.Catalog
         }
 
         public IEnumerable<string> GetBrands() =>
-            _catalogRep.EntitiesReadOnly.Select(e => e.Brand).Distinct();
+            _catalogRep.EntitiesReadOnly.Select(ci => ci.Brand).Distinct();
 
         public CatalogItem FindCatalogItemByDiscountId(int? discountId) =>
             _catalogRep.EntitiesReadOnly.FirstOrDefault(ci => ci.DiscountId == discountId);

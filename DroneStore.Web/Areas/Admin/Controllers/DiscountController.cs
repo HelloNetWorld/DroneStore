@@ -31,12 +31,6 @@ namespace DroneStore.Web.Areas.Admin.Controllers
             return View(model);
         }
 
-        // GET: Discount/Details/5
-        //public IActionResult Details(int id)
-        //{
-        //    return View();
-        //}
-
         // GET: Discount/CreateStep1
         public IActionResult CreateStep1()
         {

@@ -42,6 +42,7 @@ namespace DroneStore.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             var order = _orderService.GetById(id);

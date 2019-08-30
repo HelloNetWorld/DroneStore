@@ -8,10 +8,9 @@ namespace DroneStore.Web.Services
 	{
 		private readonly IDiscountService _discountService;
 
-		public DiscountViewModelService(IDiscountService discountService)
-		{
-			_discountService = discountService;
-		}
+		public DiscountViewModelService(IDiscountService discountService) =>
+            _discountService = discountService;
+
 
 		public DiscountViewModel GetById(int dicountId)
 		{

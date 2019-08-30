@@ -10,10 +10,8 @@ namespace DroneStore.Web.Areas.Admin.Controllers
     {
         private readonly IAdminViewModelService _adminViewModelService;
 
-        public HomeController(IAdminViewModelService adminViewModelService)
-        {
+        public HomeController(IAdminViewModelService adminViewModelService) =>
             _adminViewModelService = adminViewModelService;
-        }
 
         public IActionResult Index()
         {

@@ -75,6 +75,7 @@ namespace DroneStore.Web.Areas.Admin.Controllers
 
         // POST: User/Delete/id
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)
         {
             var user = await _userManager.FindByIdAsync(id);

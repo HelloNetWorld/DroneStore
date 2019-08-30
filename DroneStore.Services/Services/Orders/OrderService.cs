@@ -9,10 +9,8 @@ namespace DroneStore.Services.Services.Orders
     {
         private readonly IRepository<Order> _orderRep;
 
-        public OrderService(IRepository<Order> orderRep)
-        {
+        public OrderService(IRepository<Order> orderRep) =>
             _orderRep = orderRep;
-        }
 
         public void Delete(Order order)
         {
@@ -21,10 +19,9 @@ namespace DroneStore.Services.Services.Orders
             _orderRep.Delete(order);
         }
 
-        public Order GetById(int orderId)
-        {
-            return _orderRep.GetById(orderId);
-        }
+        public Order GetById(int orderId) =>
+            _orderRep.GetById(orderId);
+
 
         public IEnumerable<Order> GetAll() => 
             _orderRep.EntitiesReadOnly;

@@ -9,10 +9,8 @@ namespace DroneStore.Services.Media
     {
         private readonly IRepository<Image> _imageRep;
 
-        public ImageService(IRepository<Image> imageRep)
-        {
+        public ImageService(IRepository<Image> imageRep) =>
             _imageRep = imageRep;
-        }
 
         public void Delete(Image image)
         {
@@ -21,10 +19,8 @@ namespace DroneStore.Services.Media
             _imageRep.Delete(image);
         }
 
-        public Image GetById(int imageId)
-        {
-            return _imageRep.GetById(imageId);
-        }
+        public Image GetById(int imageId) =>
+            _imageRep.GetById(imageId);
 
         public IEnumerable<Image> GetAll()
              => _imageRep.EntitiesReadOnly;

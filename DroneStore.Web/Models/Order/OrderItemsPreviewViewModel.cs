@@ -5,10 +5,8 @@ namespace DroneStore.Web.Models.Order
 {
 	public class OrderItemsPreviewViewModel
 	{
-		public OrderItemsPreviewViewModel()
-		{
+		public OrderItemsPreviewViewModel() =>
 			Items = new List<OrderItemViewModel>();
-		}
 
 		public ICollection<OrderItemViewModel> Items { get; set; }
 

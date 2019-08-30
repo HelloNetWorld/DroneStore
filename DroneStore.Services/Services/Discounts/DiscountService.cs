@@ -9,10 +9,8 @@ namespace DroneStore.Services.Services.Discounts
 	{
 		private readonly IRepository<Discount> _discountRep;
 
-		public DiscountService(IRepository<Discount> discountRep)
-		{
-			_discountRep = discountRep;
-		}
+		public DiscountService(IRepository<Discount> discountRep) => 
+            _discountRep = discountRep;
 
 		public void Delete(Discount discount)
 		{
