@@ -1,0 +1,9 @@
+﻿@model OrderViewModel
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+@await Component.InvokeAsync("OrderItemsPreview", new { model = Model.ItemsPreview })
+
+@await Component.InvokeAsync("OrderDetails", new { model = Model })
